@@ -12,6 +12,5 @@ def user_data():
     login_body = create_body.copy()  # тело для авторизации
     del login_body['name']  # удаление лишнего элемента словаря
     yield [create_body, login_body]
-    auth = UserMethods.login_user(login_body['email'], login_body['password'])
-    token = auth.json()['accessToken']
+    token = UserMethods.get_token(login_body['email'], login_body['password'])
     UserMethods.delete_user(token)

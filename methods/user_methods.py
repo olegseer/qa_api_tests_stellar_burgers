@@ -17,6 +17,12 @@ class UserMethods:
         return requests.post(Urls.LOG_IN, json={'email': email, 'password': password})
 
     @staticmethod
-    @allure.step
+    @allure.step('Авторизация и получение токена')
+    def get_token(email, password):
+        auth = requests.post(Urls.LOG_IN, json={'email': email, 'password': password})
+        return auth.json()['accessToken']
+
+    @staticmethod
+    @allure.step('Удаление пользователя')
     def delete_user(token):
         return requests.delete(Urls.DELETE, headers={'Authorization': f'{token}'})

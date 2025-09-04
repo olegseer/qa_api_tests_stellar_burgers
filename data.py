@@ -4,3 +4,4 @@ class Urls:
     SIGN_UP = f'{BASE_URL}/api/auth/register'  # создание пользователя
     LOG_IN = f'{BASE_URL}/api/auth/login'  # авторизация пользователя
     DELETE = f'{BASE_URL}/api/auth/user'  # удаление пользователя
+    MAKE_ORDER = f'{BASE_URL}/api/orders'  # создание заказа
