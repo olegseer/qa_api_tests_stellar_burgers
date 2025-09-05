@@ -32,8 +32,8 @@ class TestCreateOrder:
         assert response.status_code == 400
         assert response.json()['message'] == Messages.NO_INGREDIENTS
 
-    @allure.title('Нельзя создать заказа без авторизации')
-    @allure.description('Создание заказа с ингредиентами и без')
+    @allure.title('Нельзя создать заказ без авторизации')
+    @allure.description('Создание заказ с ингредиентами и без')
     @pytest.mark.parametrize('ingredients', [Ingredients.VALID_INGREDIENTS, []])
     def test_create_order_no_authorised_fail(self, ingredients):
         with allure.step('Попытка создания заказа без авторизации'):
