@@ -2,7 +2,7 @@ import allure
 import pytest
 import requests
 
-from data import Urls
+from data import Urls, Messages
 from generators import generate_user_body
 from methods.user_methods import UserMethods
 
@@ -25,7 +25,7 @@ class TestCreateUser:
         with allure.step('Попытка повторной регистрации с тем же логином'):
             response = UserMethods.create_user(create_body)
         assert response.status_code == 403
-        assert response.json()['message'] == 'User already exists'
+        assert response.json()['message'] == Messages.ALREADY_EXIST
 
     @allure.title('Нельзя создать пользователя с пустым обязательным полем')
     @pytest.mark.parametrize('empty_field', ['email', 'password', 'name'])
@@ -35,7 +35,4 @@ class TestCreateUser:
         with allure.step(f'Попытка регистрации без поля {empty_field}'):
             response = UserMethods.create_user(create_body)
         assert response.status_code == 403
-        assert response.json()['message'] == 'Email, password and name are required fields'
-
-
-
+        assert response.json()['message'] == Messages.REQUIRED_FIELD

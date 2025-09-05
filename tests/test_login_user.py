@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from generators import generate_user_body
+from data import Messages
 from methods.user_methods import UserMethods
 
 
@@ -30,4 +30,4 @@ class TestLoginUser:
         with allure.step('Попытка авторизации пользователя'):
             response = UserMethods.login_user(invalid_user['email'], invalid_user['password'])
         assert response.status_code == 401
-        assert response.json()['message'] == 'email or password are incorrect'
+        assert response.json()['message'] == Messages.INCORRECT_DATA
