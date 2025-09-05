@@ -2,15 +2,13 @@ import allure
 import pytest
 
 from data import Ingredients, Messages
-from generators import generate_user_body
 from methods.order_methods import OrderMethods
 from methods.user_methods import UserMethods
 
 
 class TestCreateOrder:
 
-    @allure.title('Создание заказа авторизованным пользователем')
-    @allure.description('Создание заказа с ингредиентами')
+    @allure.title('Создание заказа авторизованным пользователем с ингредиентами')
     def test_success_create_order_with_ingredients_authorized(self, user_data):
         create_body, login_body = user_data
         with allure.step('Регистрация пользователя'):
@@ -22,8 +20,7 @@ class TestCreateOrder:
         assert response.status_code == 200
         assert response.json()['order']['owner'] is not None
 
-    @allure.title('Создание заказа авторизованным пользователем')
-    @allure.description('Создание заказа без ингредиентов')
+    @allure.title('Создание заказа авторизованным пользователем без ингредиентов')
     def test_success_create_order_no_ingredients_authorized(self, user_data):
         create_body, login_body = user_data
         with allure.step('Регистрация пользователя'):
@@ -45,7 +42,7 @@ class TestCreateOrder:
         assert response.json()['message'] == Messages.SHOULD_AUTH
 
     @allure.title('Создание заказа с неверным хешем')
-    def test_create_order_invalid_hash(self):
-        with allure.step('Создание заказа'):
+    def test_create_order_invalid_hash_server_error(self):
+        with allure.step('Попытка создания заказа с неверным хешем'):
             response = OrderMethods.create_order(Ingredients.INVALID_INGREDIENTS)
         assert response.status_code == 500
