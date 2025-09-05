@@ -48,5 +48,4 @@ class TestCreateOrder:
     def test_create_order_invalid_hash(self):
         with allure.step('Создание заказа'):
             response = OrderMethods.create_order(Ingredients.INVALID_INGREDIENTS)
-        print(response.json())
         assert response.status_code == 500

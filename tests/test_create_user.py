@@ -1,8 +1,7 @@
 import allure
 import pytest
-import requests
 
-from data import Urls, Messages
+from data import Messages
 from generators import generate_user_body
 from methods.user_methods import UserMethods
 
