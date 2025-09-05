@@ -20,7 +20,7 @@ class TestCreateOrder:
         assert response.status_code == 200
         assert response.json()['order']['owner'] is not None
 
-    @allure.title('Создание заказа авторизованным пользователем без ингредиентов')
+    @allure.title('Нельзя создать заказ авторизованным пользователем без ингредиентов')
     def test_success_create_order_no_ingredients_authorized(self, user_data):
         create_body, login_body = user_data
         with allure.step('Регистрация пользователя'):
@@ -32,7 +32,7 @@ class TestCreateOrder:
         assert response.status_code == 400
         assert response.json()['message'] == Messages.NO_INGREDIENTS
 
-    @allure.title('Создание заказа без авторизации')
+    @allure.title('Нельзя создать заказа без авторизации')
     @allure.description('Создание заказа с ингредиентами и без')
     @pytest.mark.parametrize('ingredients', [Ingredients.VALID_INGREDIENTS, []])
     def test_create_order_no_authorised_fail(self, ingredients):
@@ -41,7 +41,7 @@ class TestCreateOrder:
         assert response.status_code == 401
         assert response.json()['message'] == Messages.SHOULD_AUTH
 
-    @allure.title('Создание заказа с неверным хешем')
+    @allure.title('Нельзя создать заказ с неверным хешем')
     def test_create_order_invalid_hash_server_error(self):
         with allure.step('Попытка создания заказа с неверным хешем'):
             response = OrderMethods.create_order(Ingredients.INVALID_INGREDIENTS)

@@ -7,7 +7,7 @@ from methods.user_methods import UserMethods
 
 class TestLoginUser:
 
-    @allure.title('Авторизация  существующего пользователя')
+    @allure.title('Успешная авторизация  существующего пользователя')
     def test_success_login_user(self, user_data):
         create_body, login_body = user_data
         with allure.step('Регистрация пользователя'):
